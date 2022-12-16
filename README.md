@@ -1,1 +1,2 @@
-# MyWanAndroid
+# wanandroid
+自己仿照wanandroid的App做一个demo，一边搭建自己的技术栈
