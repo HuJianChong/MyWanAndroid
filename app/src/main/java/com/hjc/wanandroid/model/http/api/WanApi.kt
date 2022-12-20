@@ -1,8 +1,8 @@
-package com.hjc.wanandroid.http.api
+package com.hjc.wanandroid.model.http.api
 
 import com.hjc.wanandroid.base.BaseData
-import com.hjc.wanandroid.model.ArticleModel
-import com.hjc.wanandroid.model.BannerModel
+import com.hjc.wanandroid.model.bean.Article
+import com.hjc.wanandroid.model.bean.Banner
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -14,9 +14,9 @@ import retrofit2.http.Path
  **/
 interface WanApi {
     @GET("banner/json")
-    suspend fun getBanner(): BaseData<List<BannerModel>>
+    suspend fun getBanner(): BaseData<List<Banner>>
 
     //页码从0开始
     @GET("article/list/{page}/json")
-    suspend fun getArticle(@Path("page") page: Int): BaseData<ArticleModel>
+    suspend fun getArticle(@Path("page") page: Int): BaseData<Article>
 }

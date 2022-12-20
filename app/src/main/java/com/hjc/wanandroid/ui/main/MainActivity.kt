@@ -1,18 +1,19 @@
 package com.hjc.wanandroid.ui.main
 
 import android.util.Log
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjc.wanandroid.base.BaseActivity
-import com.hjc.wanandroid.base.LoadUiState
+import com.hjc.wanandroid.base.LoadUiIntent
 import com.hjc.wanandroid.databinding.ActivityMainBinding
 import com.hjc.wanandroid.ui.adapter.ArticleAdapter
 import com.hjc.wanandroid.ui.adapter.BannerAdapter
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -20,7 +21,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         private const val TAG = "MainActivity"
     }
 
-    private val mViewModel by viewModels<MainViewModel>()
+    private val mViewModel by viewModel<MainViewModel>()
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var articleAdapter: ArticleAdapter
 
@@ -48,12 +49,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         lifecycleScope.launchWhenStarted {
-            mViewModel.loadUiStateFlow.collect { state ->
-                Log.d(TAG, "loadUiStateFlow: ${state}")
+            mViewModel.loadUiIntentFlow.collect { state ->
+                Log.d(TAG, "loadUiStateFlow: $state")
                 when (state) {
-                    is LoadUiState.Error -> toast(state.msg)
-                    is LoadUiState.ShowMainView -> toast("show main")
-                    is LoadUiState.Loading -> toast("show loading")
+                    is LoadUiIntent.Error -> toast(state.msg)
+                    is LoadUiIntent.ShowMainView -> toast("show main")
+                    is LoadUiIntent.Loading -> toast("show loading")
                 }
             }
         }

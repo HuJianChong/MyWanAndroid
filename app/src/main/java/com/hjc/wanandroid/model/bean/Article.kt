@@ -1,6 +1,6 @@
-package com.hjc.wanandroid.model
+package com.hjc.wanandroid.model.bean
 
-data class ArticleModel(
+data class Article(
     var curPage: Int,
     val datas: List<ArticleItem>
 )

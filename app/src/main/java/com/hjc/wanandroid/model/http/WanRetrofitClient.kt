@@ -1,6 +1,7 @@
-package com.hjc.wanandroid.http
+package com.hjc.wanandroid.model.http
 
 import android.util.Log
+import com.hjc.wanandroid.model.http.api.WanApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,7 +10,10 @@ import java.util.concurrent.TimeUnit
 
 private const val TAG = "RetrofitUtil"
 
-object RetrofitUtil {
+object WanRetrofitClient {
+    private const val BASE_URL = "https://www.wanandroid.com";
+
+    val service by lazy { getService(WanApi::class.java) }
 
     private var mRetrofit: Retrofit? = null
 
@@ -28,20 +32,15 @@ object RetrofitUtil {
         }).setLevel(HttpLoggingInterceptor.Level.BODY)).build()
 
 
-    fun initRetrofit(): RetrofitUtil {
-        mRetrofit = Retrofit.Builder()
-            .baseUrl("https://www.wanandroid.com")
-            .client(mOkClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        return this
-    }
-
     fun <T> getService(serviceClass: Class<T>): T {
         if (mRetrofit == null) {
-            throw UninitializedPropertyAccessException("Retrofit必须初始化")
-        } else {
-            return mRetrofit!!.create(serviceClass)
+            mRetrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(mOkClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
         }
+
+        return mRetrofit!!.create(serviceClass)
     }
 }

@@ -1,8 +1,8 @@
 package com.hjc.wanandroid.ui.main
 
 import com.hjc.wanandroid.base.IUiState
-import com.hjc.wanandroid.model.ArticleModel
-import com.hjc.wanandroid.model.BannerModel
+import com.hjc.wanandroid.model.bean.Article
+import com.hjc.wanandroid.model.bean.Banner
 
 /**
  * @author jianchong.hu
@@ -13,10 +13,10 @@ data class MainState(val bannerUiState: BannerUiState, val detailUiState: Detail
 
 sealed class BannerUiState {
     object INIT : BannerUiState()
-    data class SUCCESS(val models: List<BannerModel>) : BannerUiState()
+    data class SUCCESS(val models: List<Banner>) : BannerUiState()
 }
 
 sealed class DetailUiState {
     object INIT : DetailUiState()
-    data class SUCCESS(val articles: ArticleModel) : DetailUiState()
+    data class SUCCESS(val articles: Article) : DetailUiState()
 }

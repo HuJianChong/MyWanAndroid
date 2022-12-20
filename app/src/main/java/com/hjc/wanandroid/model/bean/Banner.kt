@@ -1,4 +1,4 @@
-package com.hjc.wanandroid.model
+package com.hjc.wanandroid.model.bean
 
 /**
  *
@@ -6,7 +6,7 @@ package com.hjc.wanandroid.model
  * @create at 2022 12.12
  * @description:
  **/
-data class BannerModel(
+data class Banner(
     var desc: String,
     var imagePath: String,
     var title: String,

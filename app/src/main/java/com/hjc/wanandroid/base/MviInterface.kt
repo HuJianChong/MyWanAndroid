@@ -15,8 +15,8 @@ interface IUiState
 @Keep
 interface IUiIntent //event
 
-sealed class LoadUiState {
-    data class Loading(var isShow: Boolean) : LoadUiState()
-    object ShowMainView : LoadUiState()
-    data class Error(val msg: String) : LoadUiState()
+sealed class LoadUiIntent {
+    data class Loading(var isShow: Boolean) : LoadUiIntent()
+    object ShowMainView : LoadUiIntent()
+    data class Error(val msg: String) : LoadUiIntent()
 }

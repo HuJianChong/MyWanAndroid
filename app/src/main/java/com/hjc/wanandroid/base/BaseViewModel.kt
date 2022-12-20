@@ -26,8 +26,8 @@ abstract class BaseViewModel<UiState : IUiState, UiIntent : IUiIntent> : ViewMod
     private val _uiIntentFlow: Channel<UiIntent> = Channel()
     val uiIntentFlow: Flow<UiIntent> = _uiIntentFlow.receiveAsFlow()
 
-    private val _loadUiStateFlow: Channel<LoadUiState> = Channel()
-    val loadUiStateFlow: Flow<LoadUiState> = _loadUiStateFlow.receiveAsFlow()
+    private val _loadUiIntentFlow: Channel<LoadUiIntent> = Channel()
+    val loadUiIntentFlow: Flow<LoadUiIntent> = _loadUiIntentFlow.receiveAsFlow()
 
     fun sendUiIntent(uiIntent: UiIntent) {
         viewModelScope.launch {
@@ -48,9 +48,9 @@ abstract class BaseViewModel<UiState : IUiState, UiIntent : IUiIntent> : ViewMod
     /**
      * 发送当前加载状态：Loading、Error、Normal
      */
-    private fun sendLoadUiState(loadUiState: LoadUiState) {
+    private fun sendLoadUiIntent(loadUiIntent: LoadUiIntent) {
         viewModelScope.launch {
-            _loadUiStateFlow.send(loadUiState)
+            _loadUiIntentFlow.send(loadUiIntent)
         }
     }
 
@@ -60,20 +60,20 @@ abstract class BaseViewModel<UiState : IUiState, UiIntent : IUiIntent> : ViewMod
         successCallback: (T) -> Unit,
         failCallback: suspend (String) -> Unit = { errMsg ->
             //默认异常处理，子类可以进行覆写
-            sendLoadUiState(LoadUiState.Error(errMsg))
+            sendLoadUiIntent(LoadUiIntent.Error(errMsg))
         },
     ) {
         viewModelScope.launch {
             //是否展示Loading
             if (showLoading) {
-                sendLoadUiState(LoadUiState.Loading(true))
+                sendLoadUiIntent(LoadUiIntent.Loading(true))
             }
             val baseData: BaseData<T>
             try {
                 baseData = request()
                 when (baseData.state) {
                     ReqState.Success -> {
-                        sendLoadUiState(LoadUiState.ShowMainView)
+                        sendLoadUiIntent(LoadUiIntent.ShowMainView)
                         baseData.data?.let { successCallback(it) }
                     }
                     ReqState.Error -> baseData.msg?.let { error(it) }
@@ -82,7 +82,7 @@ abstract class BaseViewModel<UiState : IUiState, UiIntent : IUiIntent> : ViewMod
                 e.message?.let { failCallback(it) }
             } finally {
                 if (showLoading) {
-                    sendLoadUiState(LoadUiState.Loading(false))
+                    sendLoadUiIntent(LoadUiIntent.Loading(false))
                 }
             }
         }

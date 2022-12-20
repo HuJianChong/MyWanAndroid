@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hjc.wanandroid.databinding.ItemArticleBinding
-import com.hjc.wanandroid.model.ArticleItem
+import com.hjc.wanandroid.model.bean.ArticleItem
 
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.BannerViewHolder>() {
