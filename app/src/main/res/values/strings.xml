@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MVI</string>
+
+    <string name="home">首页</string>
+    <string name="blog">公众号</string>
+    <string name="search">搜索</string>
+    <string name="project_type">项目分类</string>
+    <string name="me">我</string>
+
 </resources>

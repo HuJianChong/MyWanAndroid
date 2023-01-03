@@ -18,7 +18,16 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViews()
+        initDatas()
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     protected abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
+
+    abstract fun initViews()
+    abstract fun initDatas()
 
     override fun onDestroyView() {
         super.onDestroyView()
