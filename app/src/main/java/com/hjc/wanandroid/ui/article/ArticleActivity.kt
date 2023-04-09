@@ -1,19 +1,22 @@
 package com.hjc.wanandroid.ui.article
 
-import com.hjc.wanandroid.base.BaseActivity
+import android.os.Bundle
+import com.hjc.wanandroid.base.BaseBindingActivity
 import com.hjc.wanandroid.databinding.ActivityArticleBinding
 import com.hjc.wanandroid.eventbus.Event
 import com.hjc.wanandroid.eventbus.FlowEventBus
 
-class ArticleActivity : BaseActivity<ActivityArticleBinding>() {
-    override fun getViewBinding(): ActivityArticleBinding =
-        ActivityArticleBinding.inflate(layoutInflater)
+class ArticleActivity : BaseBindingActivity<ActivityArticleBinding>({
+    ActivityArticleBinding.inflate(it)
+}) {
 
-    override fun initViews() {
-        super.initViews()
+    override fun initView(savedInstanceState: Bundle?) {
         binding.reset.setOnClickListener {
             FlowEventBus.post(Event.ShowInit("article init"))
             finish()
         }
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
     }
 }

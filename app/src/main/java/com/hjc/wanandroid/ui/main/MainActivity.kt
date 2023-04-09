@@ -1,24 +1,26 @@
 package com.hjc.wanandroid.ui.main
 
+import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hjc.wanandroid.R
 import com.hjc.wanandroid.base.BaseActivity
+import com.hjc.wanandroid.base.BaseBindingActivity
 import com.hjc.wanandroid.databinding.ActivityMainBinding
 import com.hjc.wanandroid.ui.main.fragment.BlogFragment
 import com.hjc.wanandroid.ui.main.fragment.MeFragment
 import com.hjc.wanandroid.ui.main.fragment.ProjectFragment
 import com.hjc.wanandroid.ui.main.fragment.SearchFragment
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseBindingActivity<ActivityMainBinding>({
+    ActivityMainBinding.inflate(it)
+}) {
     companion object {
         private const val TAG = "MainActivity"
     }
 
-    override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
-
-    override fun initViews() {
+    override fun initView(savedInstanceState: Bundle?) {
         binding.navView.setOnItemSelectedListener {
             Log.d(TAG, "initViews: $it")
             when (it.itemId) {
@@ -54,8 +56,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    override fun initEvents() {
+    override fun initData(savedInstanceState: Bundle?) {
     }
-
-
 }

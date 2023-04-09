@@ -1,21 +1,17 @@
 package com.hjc.wanandroid.ui.main.fragment
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.hjc.wanandroid.base.BaseFragment
+import android.os.Bundle
+import android.view.View
+import com.hjc.wanandroid.base.BaseBindingFragment
 import com.hjc.wanandroid.databinding.FragmentBlogBinding
 
-class BlogFragment : BaseFragment<FragmentBlogBinding>() {
-    override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentBlogBinding {
-        return FragmentBlogBinding.inflate(inflater)
+class BlogFragment : BaseBindingFragment<FragmentBlogBinding>({
+    FragmentBlogBinding.inflate(it)
+}) {
+
+    override fun initView(view: View, savedInstanceState: Bundle?) {
     }
 
-    override fun initViews() {
-    }
-
-    override fun initDatas() {
+    override fun initData(savedInstanceState: Bundle?) {
     }
 }

@@ -1,14 +1,14 @@
 package com.hjc.wanandroid.ui.main
 
+import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hjc.wanandroid.base.BaseFragment
+import com.hjc.wanandroid.base.BaseBindingFragment
 import com.hjc.wanandroid.base.LoadUiIntent
 import com.hjc.wanandroid.databinding.FragmentHomeBinding
 import com.hjc.wanandroid.eventbus.Event
@@ -18,7 +18,9 @@ import com.hjc.wanandroid.ui.adapter.BannerAdapter
 import kotlinx.coroutines.flow.map
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
+    FragmentHomeBinding.inflate(it)
+}) {
     companion object {
         private const val TAG = "HomeFragment"
     }
@@ -27,14 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var articleAdapter: ArticleAdapter
     private val mViewModel by viewModel<MainViewModel>()
 
-
-    override fun getViewBinding(
-        inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentHomeBinding {
-        return FragmentHomeBinding.inflate(inflater)
-    }
-
-    override fun initViews() {
+    override fun initView(view: View, savedInstanceState: Bundle?) {
         bannerAdapter = BannerAdapter()
         binding.viewPager.adapter = bannerAdapter
 
@@ -48,7 +43,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         )
     }
 
-    override fun initDatas() {
+    override fun initData(savedInstanceState: Bundle?) {
         binding.button.setOnClickListener {
             mViewModel.sendUiIntent(MainIntent.GetBanner)
             mViewModel.sendUiIntent(MainIntent.GetDetail(0))
