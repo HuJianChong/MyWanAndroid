@@ -3,7 +3,6 @@ package com.hjc.wanandroid.model.respository
 import com.hjc.wanandroid.base.BaseData
 import com.hjc.wanandroid.base.BaseRepository
 import com.hjc.wanandroid.model.http.WanRetrofitClient
-import com.hjc.wanandroid.model.http.api.WanApi
 import com.hjc.wanandroid.model.bean.Article
 import com.hjc.wanandroid.model.bean.Banner
 
@@ -15,7 +14,7 @@ import com.hjc.wanandroid.model.bean.Banner
  **/
 class HomeRepository : BaseRepository() {
 
-    private val service = WanRetrofitClient.getService(WanApi::class.java)
+    private val service = WanRetrofitClient.service
 
     suspend fun requestWanData(): BaseData<List<Banner>> {
         return executeRequest { service.getBanner() }
