@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_fragment">
+
+    <fragment
+        android:id="@+id/home_fragment"
+        android:name="com.hjc.wanandroid.ui.main.HomeFragment"
+        android:label="HomeFragment">
+
+        <action
+            android:id="@+id/action_home_fragment_to_article_activity"
+            app:destination="@id/article_activity">
+            <argument
+                android:name="article"
+                app:argType="com.hjc.wanandroid.model.bean.ArticleItem" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/block_fragment"
+        android:name="com.hjc.wanandroid.ui.main.fragment.BlogFragment"
+        android:label="BlogFragment"></fragment>
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.hjc.wanandroid.ui.main.fragment.SearchFragment"
+        android:label="SearchFragment"></fragment>
+
+    <fragment
+        android:id="@+id/project_fragment"
+        android:name="com.hjc.wanandroid.ui.main.fragment.ProjectFragment"
+        android:label="ProjectFragment"></fragment>
+
+    <fragment
+        android:id="@+id/me_fragment"
+        android:name="com.hjc.wanandroid.ui.main.fragment.MeFragment"
+        android:label="MeFragment"></fragment>
+
+    <activity
+        android:id="@+id/article_activity"
+        android:name="com.hjc.wanandroid.ui.article.ArticleActivity"
+        android:label="activity_article"
+        tools:layout="@layout/activity_article">
+        <argument
+            android:name="article"
+            app:argType="com.hjc.wanandroid.model.bean.ArticleItem" />
+    </activity>
+
+</navigation>

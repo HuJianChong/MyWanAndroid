@@ -2,16 +2,11 @@ package com.hjc.wanandroid.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.hjc.wanandroid.R
-import com.hjc.wanandroid.base.BaseActivity
 import com.hjc.wanandroid.base.BaseBindingActivity
 import com.hjc.wanandroid.databinding.ActivityMainBinding
-import com.hjc.wanandroid.ui.main.fragment.BlogFragment
-import com.hjc.wanandroid.ui.main.fragment.MeFragment
-import com.hjc.wanandroid.ui.main.fragment.ProjectFragment
-import com.hjc.wanandroid.ui.main.fragment.SearchFragment
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>({
     ActivityMainBinding.inflate(it)
@@ -20,7 +15,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>({
         private const val TAG = "MainActivity"
     }
 
+    private lateinit var navController: NavController
+
     override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         binding.navView.setOnItemSelectedListener {
             Log.d(TAG, "initViews: $it")
             when (it.itemId) {
@@ -33,27 +31,20 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>({
             true
         }
 
-        initViewPager()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
-    private fun switchFragment(position: Int) = binding.mainViewPager.setCurrentItem(position, true)
-
-    private fun initViewPager() {
-        binding.mainViewPager.isUserInputEnabled = false
-        binding.mainViewPager.offscreenPageLimit = 2
-        binding.mainViewPager.adapter = object : FragmentStateAdapter(this) {
-            override fun getItemCount(): Int = 5
-
-            override fun createFragment(position: Int): Fragment = when (position) {
-                0 -> HomeFragment()
-                1 -> BlogFragment()
-                2 -> SearchFragment()
-                3 -> ProjectFragment()
-                4 -> MeFragment()
-                else -> HomeFragment()
-            }
-
+    private fun switchFragment(position: Int) {
+        val targetFragment = when (position) {
+            0 -> R.id.home_fragment
+            1 -> R.id.block_fragment
+            2 -> R.id.search_fragment
+            3 -> R.id.project_fragment
+            4 -> R.id.me_fragment
+            else -> R.id.home_fragment
         }
+        navController.navigate(targetFragment)
     }
 
     override fun initData(savedInstanceState: Bundle?) {

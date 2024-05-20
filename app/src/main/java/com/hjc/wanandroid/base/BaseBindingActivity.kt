@@ -14,10 +14,9 @@ abstract class BaseBindingActivity<VB : ViewBinding>(
     protected val binding: VB
         get() = requireNotNull(_binding) { "The property of binding has been destroyed." }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         _binding = block(layoutInflater)
         setContentView(binding.root)
-        super.onCreate(savedInstanceState)
     }
 
     override fun onDestroy() {

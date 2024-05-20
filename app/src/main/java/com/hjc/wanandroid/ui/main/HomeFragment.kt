@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjc.wanandroid.base.BaseBindingFragment
@@ -41,6 +42,12 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
                 context, DividerItemDecoration.VERTICAL
             )
         )
+        articleAdapter.setOnItemClickListener { adapter, view, position ->
+            adapter.getItem(position)?.let {
+                val action = HomeFragmentDirections.actionHomeFragmentToArticleActivity(it)
+                findNavController().navigate(action)
+            }
+        }
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -59,42 +66,40 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
                         binding.recyclerView.isVisible = true
                         binding.button.isVisible = false
                     }
+
                     is LoadUiIntent.Loading -> Log.d(TAG, "show loading")
                 }
             }
         }
         lifecycleScope.launchWhenStarted {
-            mViewModel.uiStateFlow.map { it.bannerUiState }
-                .collect { bannerUiState ->
-                    Log.d(TAG, "bannerUiState: $bannerUiState")
-                    when (bannerUiState) {
-                        is BannerUiState.INIT -> {}
-                        is BannerUiState.SUCCESS -> {
-                            binding.viewPager.isVisible = true
-                            binding.button.isVisible = false
-                            val imgs = mutableListOf<String>()
-                            for (model in bannerUiState.models) {
-                                imgs.add(model.imagePath)
-                            }
-                            bannerAdapter.setList(imgs)
+            mViewModel.uiStateFlow.map { it.bannerUiState }.collect { bannerUiState ->
+                Log.d(TAG, "bannerUiState: $bannerUiState")
+                when (bannerUiState) {
+                    is BannerUiState.INIT -> {}
+                    is BannerUiState.SUCCESS -> {
+                        binding.viewPager.isVisible = true
+                        binding.button.isVisible = false
+                        val imgs = mutableListOf<String>()
+                        for (model in bannerUiState.models) {
+                            imgs.add(model.imagePath)
                         }
+                        bannerAdapter.submitList(imgs)
                     }
                 }
+            }
         }
         lifecycleScope.launchWhenStarted {
-            mViewModel.uiStateFlow.map { it.detailUiState }
-                .collect { detailUiState ->
-                    Log.d(TAG, "detailUiState: $detailUiState")
-                    when (detailUiState) {
-                        is DetailUiState.INIT -> {}
-                        is DetailUiState.SUCCESS -> {
-                            binding.recyclerView.isVisible = true
-                            val list = detailUiState.articles.datas
-                            articleAdapter.setList(list)
-                        }
+            mViewModel.uiStateFlow.map { it.detailUiState }.collect { detailUiState ->
+                Log.d(TAG, "detailUiState: $detailUiState")
+                when (detailUiState) {
+                    is DetailUiState.INIT -> {}
+                    is DetailUiState.SUCCESS -> {
+                        binding.recyclerView.isVisible = true
+                        val list = detailUiState.articles.datas
+                        articleAdapter.submitList(list)
                     }
-
                 }
+            }
         }
 
         FlowEventBus.observe<Event.ShowInit>(this, Lifecycle.State.STARTED) {
