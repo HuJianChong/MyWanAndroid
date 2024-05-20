@@ -3,10 +3,13 @@ package com.hjc.wanandroid
 import android.app.Application
 import com.hjc.wanandroid.di.appModule
 import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
 import com.orhanobut.logger.Logger
+import com.orhanobut.logger.PrettyFormatStrategy
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
+
 
 /**
  * @author jianchong.hu
@@ -17,8 +20,19 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Logger.addLogAdapter(AndroidLogAdapter())
+        initLog()
         initKoin()
+    }
+
+    private fun initLog() {
+        val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(true) // (Optional) Whether to show thread info or not. Default true
+            .methodCount(2) // (Optional) How many method line to show. Default 2
+            .methodOffset(5) // (Optional) Hides internal method calls up to offset. Default 5
+            .tag("HJC") // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .build()
+        Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+
     }
 
     private fun initKoin() {
