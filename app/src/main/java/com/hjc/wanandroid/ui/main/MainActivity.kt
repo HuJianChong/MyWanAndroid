@@ -1,26 +1,23 @@
 package com.hjc.wanandroid.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.hjc.wanandroid.R
 import com.hjc.wanandroid.base.BaseBindingActivity
 import com.hjc.wanandroid.databinding.ActivityMainBinding
+import com.orhanobut.logger.Logger
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>({
     ActivityMainBinding.inflate(it)
 }) {
-    companion object {
-        private const val TAG = "MainActivity"
-    }
 
     private lateinit var navController: NavController
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         binding.navView.setOnItemSelectedListener {
-            Log.d(TAG, "initViews: $it")
+            Logger.d("initViews: $it")
             when (it.itemId) {
                 R.id.navigation_home -> switchFragment(0)
                 R.id.navigation_blog -> switchFragment(1)

@@ -1,14 +1,12 @@
 package com.hjc.wanandroid.model.http
 
-import android.util.Log
 import com.hjc.wanandroid.model.http.api.WanApi
+import com.orhanobut.logger.Logger
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
-private const val TAG = "RetrofitUtil"
 
 object WanRetrofitClient {
     private const val BASE_URL = "https://www.wanandroid.com";
@@ -24,12 +22,7 @@ object WanRetrofitClient {
         .writeTimeout(10, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .followRedirects(false)
-        .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                Log.d(TAG, "log: $message")
-            }
-
-        }).setLevel(HttpLoggingInterceptor.Level.BODY)).build()
+        .addInterceptor(HttpLoggingInterceptor { message -> Logger.d("log: $message") }.setLevel(HttpLoggingInterceptor.Level.BODY)).build()
 
 
     fun <T> getService(serviceClass: Class<T>): T {

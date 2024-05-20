@@ -2,6 +2,8 @@ package com.hjc.wanandroid
 
 import android.app.Application
 import com.hjc.wanandroid.di.appModule
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -15,6 +17,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        Logger.addLogAdapter(AndroidLogAdapter())
         initKoin()
     }
 

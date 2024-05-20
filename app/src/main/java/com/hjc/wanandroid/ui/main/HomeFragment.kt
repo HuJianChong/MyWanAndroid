@@ -1,7 +1,6 @@
 package com.hjc.wanandroid.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -16,15 +15,13 @@ import com.hjc.wanandroid.eventbus.Event
 import com.hjc.wanandroid.eventbus.FlowEventBus
 import com.hjc.wanandroid.ui.adapter.ArticleAdapter
 import com.hjc.wanandroid.ui.adapter.BannerAdapter
+import com.orhanobut.logger.Logger
 import kotlinx.coroutines.flow.map
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
     FragmentHomeBinding.inflate(it)
 }) {
-    companion object {
-        private const val TAG = "HomeFragment"
-    }
 
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var articleAdapter: ArticleAdapter
@@ -42,7 +39,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
                 context, DividerItemDecoration.VERTICAL
             )
         )
-        articleAdapter.setOnItemClickListener { adapter, view, position ->
+        articleAdapter.setOnItemClickListener { adapter, _, position ->
             adapter.getItem(position)?.let {
                 val action = HomeFragmentDirections.actionHomeFragmentToArticleActivity(it)
                 findNavController().navigate(action)
@@ -58,22 +55,22 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
 
         lifecycleScope.launchWhenStarted {
             mViewModel.loadUiIntentFlow.collect { state ->
-                Log.d(TAG, "loadUiStateFlow: $state")
+                Logger.d("loadUiStateFlow: $state")
                 when (state) {
-                    is LoadUiIntent.Error -> Log.d(TAG, state.msg)
+                    is LoadUiIntent.Error ->  Logger.d(state.msg)
                     is LoadUiIntent.ShowMainView -> {
                         binding.viewPager.isVisible = true
                         binding.recyclerView.isVisible = true
                         binding.button.isVisible = false
                     }
 
-                    is LoadUiIntent.Loading -> Log.d(TAG, "show loading")
+                    is LoadUiIntent.Loading ->  Logger.d("show loading")
                 }
             }
         }
         lifecycleScope.launchWhenStarted {
             mViewModel.uiStateFlow.map { it.bannerUiState }.collect { bannerUiState ->
-                Log.d(TAG, "bannerUiState: $bannerUiState")
+                 Logger.d("bannerUiState: $bannerUiState")
                 when (bannerUiState) {
                     is BannerUiState.INIT -> {}
                     is BannerUiState.SUCCESS -> {
@@ -90,7 +87,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>({
         }
         lifecycleScope.launchWhenStarted {
             mViewModel.uiStateFlow.map { it.detailUiState }.collect { detailUiState ->
-                Log.d(TAG, "detailUiState: $detailUiState")
+                 Logger.d("detailUiState: $detailUiState")
                 when (detailUiState) {
                     is DetailUiState.INIT -> {}
                     is DetailUiState.SUCCESS -> {
