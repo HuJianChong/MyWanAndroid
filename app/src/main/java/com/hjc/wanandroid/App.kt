@@ -26,10 +26,7 @@ class App : Application() {
 
     private fun initLog() {
         val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
-            .showThreadInfo(true) // (Optional) Whether to show thread info or not. Default true
-            .methodCount(2) // (Optional) How many method line to show. Default 2
-            .methodOffset(5) // (Optional) Hides internal method calls up to offset. Default 5
-            .tag("HJC") // (Optional) Global tag for every log. Default PRETTY_LOGGER
+            .tag("HJC")
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
 
