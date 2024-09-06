@@ -75,19 +75,29 @@ class _ListView extends StatelessWidget {
   }
 
   Widget _getItem(int index) {
-    return Column(children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
-        Image.network(
-          "https://img1.baidu.com/it/u=3603317136,738383731&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=667",
-          width: 50.r,
-          height: 50.r,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(25.r),
+          child: Image.network(
+              "https://img1.baidu.com/it/u=3603317136,738383731&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=667",
+              width: 50.r,
+              height: 50.r,
+              fit: BoxFit.cover),
         ),
+        const SizedBox(width: 10),
         const Text("作者"),
         const Expanded(child: SizedBox()),
-        Padding(padding: EdgeInsets.only(right: 10.w), child:const Text("2024-9-6 09:43")),
-        const Text("置顶", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold ),),
+        Padding(padding: EdgeInsets.only(right: 10.w), child: const Text("2024-9-6 09:43")),
+        const Text(
+          "置顶",
+          textAlign: TextAlign.start,
+          style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+        ),
       ]),
+      const SizedBox(height: 10),
       const Text("标题标题标题标题标题标题标题标题"),
+      const SizedBox(height: 10),
       Row(children: [
         const Text("分类"),
         const Expanded(child: SizedBox()),
