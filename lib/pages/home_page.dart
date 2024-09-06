@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:my_wan_android/pages/web_view_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -61,15 +62,21 @@ class _ListView extends StatelessWidget {
       child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return Container(
-              width: double.infinity,
-              margin: EdgeInsets.all(10.r),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black26, width: 0.5.r),
-                  borderRadius: BorderRadius.all(Radius.circular(15.r))),
-              padding: EdgeInsets.all(10.r),
-              child: _getItem(index),
-            );
+            return GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return WebViewPage();
+                  }));
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.all(10.r),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black26, width: 0.5.r),
+                      borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                  padding: EdgeInsets.all(10.r),
+                  child: _getItem(index),
+                ));
           }),
     );
   }
