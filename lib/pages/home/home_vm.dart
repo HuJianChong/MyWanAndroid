@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:my_wan_android/datas/home_banner_data.dart';
 
-class HomeViewModel {
-  static Future<List<BannerData>?> getBanner() async {
+class HomeViewModel extends ChangeNotifier {
+  List<BannerData>? bannerList;
+
+  void getBanner() async {
     Dio dio = Dio();
     dio.options = BaseOptions(
         method: "get",
@@ -13,8 +16,10 @@ class HomeViewModel {
     Response response = await dio.get("/banner/json");
     HomeBannerData homeBannerData = HomeBannerData.fromJson(response.data);
     if (homeBannerData.errorCode == 0 && homeBannerData.data != null) {
-      return homeBannerData.data;
+      bannerList = homeBannerData.data;
+    } else {
+      bannerList = [];
     }
-    return [];
+    notifyListeners();
   }
 }

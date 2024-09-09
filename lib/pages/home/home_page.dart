@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:my_wan_android/pages/home/home_vm.dart';
 import 'package:my_wan_android/route/routes.dart';
-
-import '../../datas/home_banner_data.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,38 +15,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  List<BannerData>? bannerList;
+  HomeViewModel vm = HomeViewModel();
 
   @override
   void initState() {
     super.initState();
-    initBanner();
-  }
-
-  void initBanner() async {
-    bannerList = await HomeViewModel.getBanner();
-    setState(() {});
+    vm.getBanner();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: [
-          _banner(),
-          _listView(),
-        ],
-      ),
-    ));
+    return ChangeNotifierProvider<HomeViewModel>(
+      create: (_) => vm,
+      child: Scaffold(
+          body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Consumer<HomeViewModel>(builder: (context, vm, child) => _banner(context, vm, child)),
+            _listView(),
+          ],
+        ),
+      )),
+    );
   }
 
-  Widget _banner() {
+  Widget _banner(context, vm, child) {
+    print("_banner 刷新");
     return SizedBox(
       width: double.infinity,
       height: 150.h,
       child: Swiper(
-        itemCount: bannerList?.length ?? 0,
+        itemCount: vm.bannerList?.length ?? 0,
         autoplay: true,
         indicatorLayout: PageIndicatorLayout.SCALE,
         pagination: const SwiperPagination(),
@@ -57,7 +55,7 @@ class _HomePage extends State<HomePage> {
             color: Colors.lightBlue,
             height: 150.h,
             width: double.infinity,
-            child: Image.network(bannerList?[index].imagePath ?? '', fit: BoxFit.cover),
+            child: Image.network(vm.bannerList?[index].imagePath ?? '', fit: BoxFit.cover),
           );
         },
       ),
@@ -65,6 +63,7 @@ class _HomePage extends State<HomePage> {
   }
 
   Widget _listView() {
+    print("_listView 刷新");
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
