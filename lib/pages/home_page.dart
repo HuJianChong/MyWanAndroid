@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:my_wan_android/pages/web_view_page.dart';
+import 'package:my_wan_android/route/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -64,9 +65,7 @@ class _ListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const WebViewPage(title: "从首页来的", url: "https://www.baidu.com/");
-                  }));
+                  Navigator.pushNamed(context, RoutePath.webView, arguments: {"title": "从首页来的", "url": "https://www.baidu.com/"});
                 },
                 child: Container(
                   width: double.infinity,
