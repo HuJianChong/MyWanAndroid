@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:my_wan_android/pages/home/home_vm.dart';
 import 'package:my_wan_android/route/routes.dart';
+
+import '../../datas/home_banner_data.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,19 +16,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  List<BannerData>? bannerList;
+
+  @override
+  void initState() {
+    super.initState();
+    initBanner();
+  }
+
+  void initBanner() async {
+    bannerList = await HomeViewModel.getBanner();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _banner(),
-            _listView(),
-          ],
-        ),
-      )),
-    );
+        body: SingleChildScrollView(
+      child: Column(
+        children: [
+          _banner(),
+          _listView(),
+        ],
+      ),
+    ));
   }
 
   Widget _banner() {
@@ -33,7 +47,7 @@ class _HomePage extends State<HomePage> {
       width: double.infinity,
       height: 150.h,
       child: Swiper(
-        itemCount: 3,
+        itemCount: bannerList?.length ?? 0,
         autoplay: true,
         indicatorLayout: PageIndicatorLayout.SCALE,
         pagination: const SwiperPagination(),
@@ -43,6 +57,7 @@ class _HomePage extends State<HomePage> {
             color: Colors.lightBlue,
             height: 150.h,
             width: double.infinity,
+            child: Image.network(bannerList?[index].imagePath ?? '', fit: BoxFit.cover),
           );
         },
       ),

@@ -1,7 +1,7 @@
 //路由地址
 import 'package:flutter/material.dart';
 
-import '../pages/home_page.dart';
+import '../pages/home/home_page.dart';
 import '../pages/web_view_page.dart';
 
 class RoutePath {
