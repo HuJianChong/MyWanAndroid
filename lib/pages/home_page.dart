@@ -65,7 +65,7 @@ class _ListView extends StatelessWidget {
             return GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return WebViewPage();
+                    return const WebViewPage(title: "从首页来的", url: "https://www.baidu.com/");
                   }));
                 },
                 child: Container(
