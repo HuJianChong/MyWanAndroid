@@ -58,6 +58,12 @@ dependencies:
   shared_preferences: ^2.2.2
   # banner轮播
   flutter_swiper_view: ^1.1.8
+  # 图片缓存加载
+  cached_network_image: ^3.2.2
+  # webview：基于原生webview封装的
+  flutter_inappwebview: ^5.8.0
+  # 下拉刷新上拉加载
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_test:
