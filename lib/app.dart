@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:my_wan_android/route/Routes.dart';
+import 'package:my_wan_android/route/routes.dart';
 import 'package:oktoast/oktoast.dart';
 
 Size get designSize {

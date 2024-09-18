@@ -11,7 +11,7 @@ import '../../../common_ui/common_styles.dart';
 import '../../../common_ui/web/webview_page.dart';
 import '../../../common_ui/web/webview_widget.dart';
 import '../../../repository/model/knowledge_detail_list_model.dart';
-import '../../../route/RouteUtils.dart';
+import '../../../route/route_utils.dart';
 
 ///知识体系明细tab页签页面
 class DetailTabChildPage extends StatefulWidget {

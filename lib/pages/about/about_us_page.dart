@@ -8,7 +8,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../common_ui/web/webview_page.dart';
 import '../../common_ui/web/webview_widget.dart';
-import '../../route/RouteUtils.dart';
+import '../../route/route_utils.dart';
 
 class AboutUsPage extends StatefulWidget {
   const AboutUsPage({super.key});

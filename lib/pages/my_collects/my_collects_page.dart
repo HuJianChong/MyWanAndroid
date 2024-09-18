@@ -9,7 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../common_ui/common_styles.dart';
 import '../../common_ui/web/webview_page.dart';
 import '../../common_ui/web/webview_widget.dart';
-import '../../route/RouteUtils.dart';
+import '../../route/route_utils.dart';
 import 'my_collects_view_model.dart';
 
 ///我的收藏页面

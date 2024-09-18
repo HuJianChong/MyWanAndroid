@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wan_android/common_ui/smart_refresh/smart_refresh_widget.dart';
 import 'package:my_wan_android/pages/knowledge/details/knowledge_details_tab_page.dart';
 import 'package:my_wan_android/repository/model/knowledge_list_model.dart';
-import 'package:my_wan_android/route/RouteUtils.dart';
+import 'package:my_wan_android/route/route_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

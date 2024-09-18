@@ -5,7 +5,7 @@ import 'package:my_wan_android/common_ui/banner/home_banner_widget.dart';
 import 'package:my_wan_android/common_ui/web/webview_page.dart';
 import 'package:my_wan_android/common_ui/web/webview_widget.dart';
 import 'package:my_wan_android/pages/home/home_view_model.dart';
-import 'package:my_wan_android/route/RouteUtils.dart';
+import 'package:my_wan_android/route/route_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_wan_android/pages/auth/auth_view_model.dart';
 import 'package:my_wan_android/pages/auth/register_page.dart';
 import 'package:my_wan_android/pages/tab_page.dart';
-import 'package:my_wan_android/route/RouteUtils.dart';
+import 'package:my_wan_android/route/route_utils.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 

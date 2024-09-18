@@ -7,7 +7,7 @@ import 'package:my_wan_android/common_ui/web/webview_page.dart';
 import 'package:my_wan_android/common_ui/web/webview_widget.dart';
 import 'package:my_wan_android/pages/search/search_view_model.dart';
 import 'package:my_wan_android/repository/model/search_list_model.dart';
-import 'package:my_wan_android/route/RouteUtils.dart';
+import 'package:my_wan_android/route/route_utils.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
